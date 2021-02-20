@@ -3,25 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 
 // Connect to server via socket
 // const socket = io('https://crowdmap-server.herokuapp.com/');
-const socket = io('http://localhost:5000');
-console.log(socket);
+// const socket = io('http://localhost:5000');
+// console.log(socket);
 
-socket.on('connect', () =>{
-  alert('connected');
-  socket.emit("update", {"coord": [100, 100]});
-});
+// socket.on('connect', () =>{
+//   alert('connected');
+//   socket.emit("update", {"coord": [100, 100]});
+// });
 
 //Update current location
 //socket.emit("update", {"coord": [150 ,150]})
 
 
-socket.on('disconnect', () => {
-  alert('disconnect');
-});
+// socket.on('disconnect', () => {
+//   alert('disconnect');
+// });
 
 ReactDOM.render(
   <React.StrictMode>
