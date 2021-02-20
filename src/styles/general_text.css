@@ -11,3 +11,10 @@
   margin: 0;
   padding: 0;
 }
+
+#smaller-text {
+  color: rgba(255,255,255,0.9);
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+}

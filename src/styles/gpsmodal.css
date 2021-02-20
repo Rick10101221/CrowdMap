@@ -1,0 +1,12 @@
+#modal-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loader {
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+}
