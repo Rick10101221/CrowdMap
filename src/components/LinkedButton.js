@@ -19,7 +19,6 @@ export const LinkedButton = (props) => {
     height: '8vh',
     marginLeft: '30%',
     marginRight: '30%',
-    marginTop: '125%',
     borderRadius: 5,
   }
 
