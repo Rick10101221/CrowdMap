@@ -1,0 +1,23 @@
+#outer-header {
+  display: flex;
+  background-color: rgba(100,100,100,0.8);
+  height: 10vh;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 5vw;
+}
+
+#header-text {
+  font-size: 25px;
+  color: white;
+}
+
+#spacious {
+  color: rgb(35, 255, 35);
+  font-size: 25px;
+}
+
+#dense {
+  color: red;
+  font-size: 25px;
+}

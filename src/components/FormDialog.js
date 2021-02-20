@@ -6,20 +6,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { 
-  createMuiTheme, 
-  withStyles, 
-  makeStyles, 
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
+import SearchIcon from '@material-ui/icons/Search';
 
 export function FormDialog() {
-  const [open, setOpen] = React.useState(false);
-  const [addr, setAddr] = React.useState('');
-  const [city, setCity] = React.useState('');
-  const [state, setState] = React.useState('');
-  const [zip, setZip] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [addr, setAddr] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     margin: {
@@ -56,32 +52,12 @@ export function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
-    console.log(addr, city, state, zip);
-    console.log(values);
+    
   };
 
   const checkFilled = () => {
-    return values[addr] != '' && city != '' && state != '' && zip != '';
+    return addr != '' && city != '' && state != '' && zip != '';
   }
-
-  const values = {
-    addr: '',
-    city: '',
-    state: '',
-    zip: '',
-  }
-
-  let AddressField = (
-    <CssTextField
-      required
-      value={addr}
-      margin="dense"
-      id="street_address"
-      label="Street Address"
-      onChange={(e) => setAddr(e.target.value)}
-      fullWidth
-    />
-  )
 
   return (
     <div>
@@ -91,7 +67,7 @@ export function FormDialog() {
         className={classes.margin} 
         onClick={handleClickOpen}
       >
-        Find Your Location
+        <SearchIcon />
       </ColorButton>
 
       <Dialog 
@@ -107,8 +83,6 @@ export function FormDialog() {
             area.
           </DialogContentText>
 
-          {/* {AddressField} */}
-
           <TextField
             required
             value={addr}
@@ -118,62 +92,35 @@ export function FormDialog() {
             onChange={(e) => setAddr(e.target.value)}
             fullWidth
           />
+          <TextField
+            required
+            value={city}
+            margin="dense"
+            id="city"
+            label="City"
+            onChange={(e) => setCity(e.target.value)}
+            fullWidth
+          />
+          <TextField
+            required
+            value={state}
+            margin="dense"
+            id="state"
+            label="State"
+            onChange={(e) => setState(e.target.value)}
+            fullWidth
+          />
+          <TextField
+            required
+            value={zip}
+            margin="dense"
+            id="zip_code"
+            label="Zip Code"
+            type="number"
+            onChange={e => setZip(e.target.value)}
+            fullWidth
+          />
 
-          <TextField
-            required
-            value={city}
-            margin="dense"
-            id="city"
-            label="City"
-            onChange={(e) => setCity(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            required
-            value={state}
-            margin="dense"
-            id="state"
-            label="State"
-            onChange={(e) => setState(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            required
-            value={zip}
-            margin="dense"
-            id="zip_code"
-            label="Zip Code"
-            onChange={e => setZip(e.target.value)}
-            fullWidth
-          />
-          
-          {/* <CssTextField
-            required
-            value={city}
-            margin="dense"
-            id="city"
-            label="City"
-            onChange={(e) => setCity(e.target.value)}
-            fullWidth
-          />
-          <CssTextField
-            required
-            value={state}
-            margin="dense"
-            id="state"
-            label="State"
-            onChange={(e) => setState(e.target.value)}
-            fullWidth
-          />
-          <CssTextField
-            required
-            value={zip}
-            margin="dense"
-            id="zip_code"
-            label="Zip Code"
-            onChange={e => setZip(e.target.value)}
-            fullWidth
-          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -185,7 +132,7 @@ export function FormDialog() {
             <Button onClick={handleClose} color="primary">
               Compute Density
             </Button>
-          :
+            :
             <Button disabled color='primary'>
               Compute Density
             </Button>
