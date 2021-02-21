@@ -15,7 +15,7 @@ let app = firebase.initializeApp({
     databaseURL: 'https://crowdmap-305402-default-rtdb.firebaseio.com/'
 });
 
-class HeatMap extends Component {
+class HeatMapAvg extends Component {
     static defaultProps = {
         center: {
             lat: 33.998470127751006,
@@ -61,18 +61,22 @@ class HeatMap extends Component {
         );
     }
     componentDidMount() {
-        const socket = io('https://crowdmap-server.herokuapp.com');
-
-        socket.on('connect', () =>{
-          socket.emit("update", {"coord": [100, 100]});
-        });
-        socket.on('get', (data) =>{
-          this.addPoints(data);
-          // for(let i = 0; i < data.length; i ++)
-          //   firebase.database().ref("record/" + i).set(data[i]).catch(console.error);
-        });
-
+        firebase.database().ref("record/").once("value").then(snapshot => {
+            //record/{18:[]}
+            let allData = snapshot.val();
+            let averageData = allData["0"];
+            for(let i in allData) {
+                if(i == "0") continue;
+                for(let j = 0; j < averageData.length; j++) {
+                    averageData[j]["lat"] = (averageData[j]["lat"]+allData[i][j]["lat"])/2;
+                    averageData[j]["lng"] = (averageData[j]["lng"]+allData[i][j]["lng"])/2;
+                }
+            }
+            return averageData;
+        }).then( averageData => {
+            this.addPoints(averageData, 0)
+        })
     }
 }
 
-export default HeatMap;
+export default HeatMapAvg;
