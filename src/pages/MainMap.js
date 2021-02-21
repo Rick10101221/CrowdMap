@@ -7,7 +7,7 @@ import HeatMap from '../components/Heatmap';
 import { LinkedButton } from '../components/LinkedButton';
 import '../styles/mainmap.css';
 
-export const MainMap = () => {
+export const MainMap = (props) => {
   const history = useHistory();
 
   const handleClick = () => {
@@ -17,9 +17,9 @@ export const MainMap = () => {
   return (
     <div>
       <Header 
-        density='dense'
+        density={props.density}
       />
-      <HeatMap />
+      <HeatMap setter={props.setter}/>
       <GetGPSModal />
       <FormDialog />
       <div id='daily_button'>

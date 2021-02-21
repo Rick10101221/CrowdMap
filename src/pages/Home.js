@@ -106,7 +106,7 @@ export const Home = () => {
           className={classes.margin} 
           onClick={handleClickOpen}
         >
-          BUTTON
+          View Map
         </ColorButton>
       </div>
 

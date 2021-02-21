@@ -7,7 +7,7 @@ import HeatMapAvg from '../components/HeatMapAvg';
 import { LinkedButton } from '../components/LinkedButton';
 import '../styles/secondarymap.css';
 
-export const SecondaryMap = () => {
+export const SecondaryMap = (props) => {
   const history = useHistory();
 
   const handleClick = () => {
@@ -17,7 +17,7 @@ export const SecondaryMap = () => {
   return (
     <div>
       <Header 
-        density='dense'
+        density={props.density}
       />
       <HeatMapAvg />
       <GetGPSModal />

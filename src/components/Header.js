@@ -2,22 +2,28 @@ import React from 'react';
 
 import '../styles/header.css';
 
-export const Header = ({density='spacious'}) => {
+export const Header = (props) => {
   return (
     <div id='outer-header'>
       <span id='header-text'>
         Current Location: 
       </span>
       {
-        density == 'spacious' &&
+        props.density == 'spacious' &&
         <span id='spacious'>
-          &nbsp; Spacious
+          &nbsp; {props.density}
         </span>
       }
       {
-        density == 'dense' &&
+        props.density == 'moderate' &&
+        <span id='moderate'>
+          &nbsp; {props.density}
+        </span>
+      }
+      {
+        props.density == 'dense' &&
         <span id='dense'>
-          &nbsp; Dense
+          &nbsp; {props.density}
         </span>
       }
     </div>
