@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { FormDialog } from '../components/FormDialog';
 import { Header } from '../components/Header';
 import { GetGPSModal } from '../components/GetGPSModal';
-import HeatMap from '../components/Heatmap';
+import HeatMap from '../components/HeatMap';
 import { LinkedButton } from '../components/LinkedButton';
 import '../styles/mainmap.css';
 
