@@ -8,6 +8,7 @@ import 'firebase/database'
 import io from 'socket.io-client';
 import {APIKEY, FBKEY} from '../key'
 import MapPin from '../components/MapPin'
+import mapStyles from '../mapStyles'
 
 console.log(firebase);
 let app = firebase.initializeApp({
@@ -83,6 +84,7 @@ class HeatMap extends Component {
                 bootstrapURLKeys={{ key: APIKEY }}
                 defaultCenter={this.props.center}
                 defaultZoom={this.props.zoom}
+                defaultOptions={ {stylers: mapStyles} }
                 heatmapLibrary={true}
                 heatmap={this.state.heatMapData}
                 >
@@ -101,7 +103,7 @@ class HeatMap extends Component {
                 socket.emit("update", {"coord": [100, 100]});
             });
             socket.on('get', (data) =>{
-                this.addPoints(data);
+                this.addPoints(data[0]);
                 // for(let i = 0; i < data.length; i ++)
                   // firebase.database().ref("record/" + i).set(data[i]).catch(console.error).then(console.log("pushed"));
             });
