@@ -8,6 +8,7 @@ import { useTrail, a } from 'react-spring'
 
 import crowdLogo from '../images/crowdLogo.png';
 import mapLogo from '../images/mapLogo.png';
+import crowd_gif from '../images/crowd.gif';
 
 import '../styles/home.css';
 import '../styles/general_text.css';
@@ -40,6 +41,14 @@ export const Home = () => {
       height='121'
     />
   )
+  let crowdGif = (
+    <img
+      src={crowd_gif}
+      alt='Crowd Gif'
+      width='400'
+      height='225'
+    />
+  )
   const items = [crowdImg, mapImg];
 
   const ColorButton = withStyles((theme) => ({
@@ -54,7 +63,7 @@ export const Home = () => {
 
   // For trail speed, alter tension
   const trail = useTrail(items.length, {
-    config: { mass: 5, tension: 800, friction: 200 },
+    config: { mass: 5, tension: 500, friction: 200 },
     opacity: open ? 1 : 0,
     x: open ? 0 : 20,
     height: open ? 110 : 0,
@@ -100,7 +109,10 @@ export const Home = () => {
           BUTTON
         </ColorButton>
       </div>
-      
+
+      {/* <div style={{marginTop: '110px'}}>
+        {crowdGif}
+      </div> */}
     </div>
   )
 }

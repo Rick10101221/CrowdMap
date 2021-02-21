@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 
 import { Home } from './pages/Home';
 import { MainMap } from './pages/MainMap';
-import HeatMap from './pages/HeatMap';
+import { SecondaryMap } from './pages/SecondaryMap';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route exact path='/' render={()=> <Redirect to="/home"/>} />
         <Route exact path='/home' component={Home} />
         <Route exact path='/map' component={MainMap} />
-        <Route exact path='/home' component={HeatMap} />
+        <Route exact path='/live_map' component={SecondaryMap} />
       </Switch>
     </Router>
   );

@@ -53,9 +53,6 @@ export function GetGPSModal() {
 
   return (
     <div>
-      {/* <button type="button" onClick={handleOpen}>
-        react-transition-group
-      </button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -76,7 +73,7 @@ export function GetGPSModal() {
               loading={true}
               size={200} 
             />
-            <br/>
+            <br />
             <p id='smaller-text'>Getting GPS Location</p>
           </div>
         </Fade>

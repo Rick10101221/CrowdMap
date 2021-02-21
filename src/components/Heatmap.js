@@ -1,19 +1,11 @@
 /*
     Authors: Jack Chou, Jeffrey Liu, Darien Tsai
 */
+
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import firebase from "firebase/app";
-import 'firebase/database'
 import io from 'socket.io-client';
-import {APIKEY, FBKEY} from '../key'
-
-console.log(firebase);
-let app = firebase.initializeApp({
-    apiKey: FBKEY,
-    projectId: 'crowdmap-305402',
-    databaseURL: 'https://crowdmap-305402-default-rtdb.firebaseio.com/'
-});
+import { APIKEY } from '../key'
 
 class HeatMap extends Component {
     static defaultProps = {
@@ -48,16 +40,20 @@ class HeatMap extends Component {
     }
     render() {
         return (
-            this.state.mapStatus ?
-            (<GoogleMapReact
-                style={{ height: '100vh', width: '100%' }}
-                bootstrapURLKeys={{ key: APIKEY }}
-                defaultCenter={this.props.center}
-                defaultZoom={this.props.zoom}
-                heatmapLibrary={true}
-                heatmap={this.state.heatMapData}
+            <div>
+              {
+                this.state.mapStatus ?
+                (<GoogleMapReact
+                  style={{}}
+                  bootstrapURLKeys={{ key: APIKEY }}
+                  defaultCenter={this.props.center}
+                  defaultZoom={this.props.zoom}
+                  heatmapLibrary={true}
+                  heatmap={this.state.heatMapData}
                 >
-            </GoogleMapReact>) : (<></>)
+                </GoogleMapReact>) : (<></>)
+              }
+            </div>
         );
     }
     componentDidMount() {
@@ -68,10 +64,7 @@ class HeatMap extends Component {
         });
         socket.on('get', (data) =>{
           this.addPoints(data);
-          // for(let i = 0; i < data.length; i ++)
-          //   firebase.database().ref("record/" + i).set(data[i]).catch(console.error);
         });
-
     }
 }
 

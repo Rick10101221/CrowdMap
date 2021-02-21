@@ -4,9 +4,8 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import firebase from "firebase/app";
-import 'firebase/database'
-import io from 'socket.io-client';
-import {APIKEY, FBKEY} from '../key'
+import 'firebase/database';
+import {APIKEY, FBKEY} from '../key';
 
 console.log(firebase);
 let app = firebase.initializeApp({

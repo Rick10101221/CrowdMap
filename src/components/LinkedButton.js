@@ -1,39 +1,44 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { blue } from '@material-ui/core/colors';
 
 import '../styles/general_text.css';
 
 export const LinkedButton = (props) => {
-  const history = useHistory();
-
   const {
-    buttonColor,
     buttonText,
+    click
   } = props;
 
-  const outer_button_style = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: buttonColor,
-    height: '8vh',
-    marginLeft: '30%',
-    marginRight: '30%',
-    borderRadius: 5,
-  }
+  const useStyles = makeStyles((theme) => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+  }));
 
-  const inner_text = {
-    fontSize: '20px',
-  }
+  const classes = useStyles();
+
+  const ColorButton = withStyles((theme) => ({
+    root: {
+      color: theme.palette.getContrastText(blue[600]),
+      backgroundColor: blue[600],
+      '&:hover': {
+        backgroundColor: blue[800],
+      },
+    },
+  }))(Button);
 
   return (
-    <div 
-      onClick={() => history.push('/map')} 
-      style={outer_button_style}
-    >
-      <span id='lighter-text' style={inner_text}>
+    <div>
+      <ColorButton
+        variant="contained" 
+        color="primary" 
+        className={classes.margin} 
+        onClick={click}
+      >
         {buttonText}
-      </span>
+      </ColorButton>
     </div>
   )
 }

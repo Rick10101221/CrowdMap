@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import SearchIcon from '@material-ui/icons/Search';
+import '../styles/form_dialog.css';
 
 export function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -62,6 +63,7 @@ export function FormDialog() {
   return (
     <div>
       <ColorButton 
+        id='form-button'
         variant="contained" 
         color="primary" 
         className={classes.margin} 

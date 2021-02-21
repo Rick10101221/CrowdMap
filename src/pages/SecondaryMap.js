@@ -3,15 +3,15 @@ import { useHistory } from 'react-router-dom';
 import { FormDialog } from '../components/FormDialog';
 import { Header } from '../components/Header';
 import { GetGPSModal } from '../components/GetGPSModal';
-import HeatMap from '../components/Heatmap';
+import HeatMapAvg from '../components/HeatMapAvg';
 import { LinkedButton } from '../components/LinkedButton';
-import '../styles/mainmap.css';
+import '../styles/secondarymap.css';
 
-export const MainMap = () => {
+export const SecondaryMap = () => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push('/live_map');
+    history.push('/map');
   };
 
   return (
@@ -19,12 +19,12 @@ export const MainMap = () => {
       <Header 
         density='dense'
       />
-      <HeatMap />
+      <HeatMapAvg />
       <GetGPSModal />
       <FormDialog />
-      <div id='daily_button'>
+      <div id='live_button'>
         <LinkedButton
-          buttonText='Average'
+          buttonText='Live'
           click={() => handleClick()}
         />
       </div>
