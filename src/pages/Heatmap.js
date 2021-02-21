@@ -1,75 +1,67 @@
+/*
+    Authors: Jack Chou, Jeffrey Liu, Darien Tsai
+*/
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import GoogleMapReact from 'google-map-react';
+import io from 'socket.io-client';
+import {APIKEY} from '../key'
 
-import { DataLoadingHeatmap } from './map';
+class HeatMap extends Component {
+    static defaultProps = {
+        center: {
+            lat: 33.998470127751006,
+            lng: -117.94746979872437
+        },
+        zoom: 15
+    };
 
-export default class Heatmap extends Component {
-  constructor(props) {
-    super(props);
-    // Initialize state
-    const {lat, lng} = this.props.initialCenter;
-    this.updateData = this.updateData.bind(this);
-    this.state = {
-      currentLocation: {
-        lat: lat,
-        lng: lng
-      },
-      mapData: [
-        {lat: 37.782, lng: -122.447, weight: 0.5},
-        {lat: 37.782, lng: -122.443, weight: 2},
-        {lat: 37.782, lng: -122.441, weight: 3},
-        {lat: 37.782, lng: -122.439, weight: 2},
-        {lat: 37.782, lng: -122.435, weight: 0.5},
-        {lat: 37.785, lng: -122.447, weight: 3},
-        {lat: 37.785, lng: -122.445, weight: 2},
-        {lat: 37.785, lng: -122.441, weight: 0.5},
-        {lat: 37.785, lng: -122.437, weight: 2},
-        {lat: 37.785, lng: -122.435, weight: 3}
-      ],
+    constructor(){
+        super();
+
+        this.state = {
+            mapStatus: false,
+            heatMapData: {
+                positions:[],
+                options: {
+                    radius: 13,
+                    opacity: 0.3
+                }
+            },
+        };
     }
-  }
 
-  // You can find out the new position after map is moved
-  // by assigning a callback to the onMove prop.
-  // In this example, the callback function is updateData.
-  // You can also make backend requests in the updateData function.
-  // Note that updateData() is not optimized to minimize requests
-  // and the onMove event handler is fired a lot!
-  // You can optionally set a timeout on the request inside updateData
-  // for better optimization
-  updateData(newBounds, newCenter) {
-    // Uncomment to pass new data to heatmap
-    /* this.setState({
-         mapData: [
-           {lat: 37.785, lng: -122.447, weight: 3},
-           {lat: 37.785, lng: -122.445, weight: 2},
-           {lat: 37.785, lng: -122.441, weight: 0.5},
-           {lat: 37.785, lng: -122.437, weight: 2}
-         ]
-     });*/
-  }
+    addPoints = (data) => {
+        let newData = this.state.heatMapData;
+        for(let i = 0; i < data.length; i++) {
+            newData["positions"].push({lat: data[i][0], lng: data[i][1]});
+        }
+        this.setState({heatMapData: newData, mapStatus: true});
+    }
+    render() {
+        return (
+            this.state.mapStatus ?
+            (<GoogleMapReact
+                style={{ height: '100vh', width: '100%' }}
+                bootstrapURLKeys={{ key: APIKEY }}
+                defaultCenter={this.props.center}
+                defaultZoom={this.props.zoom}
+                heatmapLibrary={true}
+                heatmap={this.state.heatMapData}
+                >
+            </GoogleMapReact>) : (<></>)
+        );
+    }
+    componentDidMount() {
+        const socket = io('https://crowdmap-server.herokuapp.com');
 
-  render() {
-    return (
-      <DataLoadingHeatmap
-        zoom={12}
-        onMove={this.updateData}
-        heatmapRawData={this.state.mapData}
-      >
-      </DataLoadingHeatmap>
-    );
-  }
+        socket.on('connect', () =>{
+          socket.emit("update", {"coord": [100, 100]});
+        });
+        socket.on('get', (data) =>{
+          this.addPoints(data);
+        });
+    }
 }
 
-Heatmap.defaultProps = {
-  // San Francisco by default
-  initialCenter: {
-    lat: 37.774929,
-    lng: -122.419416
-  }
-};
-
-Heatmap.propTypes = {
-  zoom: PropTypes.number,
-  initialCenter: PropTypes.object
-};
+export default HeatMap;

@@ -8,3 +8,15 @@ body, #root{
   height: 100vh;
   overflow: hidden;
 }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.gm-fullscreen-control {
+    display: none;
+}
+
+.gm-bundled-control-on-bottom {
+    display: none;
+}
