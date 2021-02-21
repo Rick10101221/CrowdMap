@@ -33,7 +33,7 @@ class HeatMapAvg extends Component {
                 positions:[],
                 options: {
                     radius: 13,
-                    opacity: 0.3
+                    opacity: 0.5
                 }
             },
         };

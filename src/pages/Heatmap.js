@@ -35,7 +35,7 @@ class HeatMap extends Component {
                 positions:[],
                 options: {
                     radius: 13,
-                    opacity: 0.3
+                    opacity: 0.5
                 }
             },
             lat: 33.986217,
@@ -84,7 +84,7 @@ class HeatMap extends Component {
                 bootstrapURLKeys={{ key: APIKEY }}
                 defaultCenter={this.props.center}
                 defaultZoom={this.props.zoom}
-                defaultOptions={ {stylers: mapStyles} }
+                options= {{styles: mapStyles}}
                 heatmapLibrary={true}
                 heatmap={this.state.heatMapData}
                 >
