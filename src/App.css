@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.gm-fullscreen-control {
+    display: none;
+}
+
+.gm-bundled-control-on-bottom {
+    display: none;
+}
