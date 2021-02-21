@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 import 'firebase/database'
 import io from 'socket.io-client';
 import {APIKEY, FBKEY} from '../key'
-import MapPin from '../components/MapPin'
+import MapPin from './MapPin'
 import mapStyles from '../mapStyles'
 
 console.log(firebase);
@@ -23,7 +23,7 @@ class HeatMap extends Component {
             lat: 33.986217,
             lng: -117.976234
         },
-        zoom: 15
+        zoom: 15.4
     };
 
     constructor(){
@@ -34,8 +34,8 @@ class HeatMap extends Component {
             heatMapData: {
                 positions:[],
                 options: {
-                    radius: 13,
-                    opacity: 0.5
+                    radius: 11,
+                    opacity: 0.4
                 }
             },
             lat: 33.986217,
