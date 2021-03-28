@@ -1,0 +1,6 @@
+#daily_button {
+  position: absolute;
+  bottom: 4vh;
+  right: 6vw;
+  z-index: 3;
+}
