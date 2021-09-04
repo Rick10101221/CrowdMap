@@ -10,12 +10,12 @@ import {APIKEY, FBKEY} from '../key'
 import MapPin from './MapPin'
 import mapStyles from '../mapStyles'
 
-// console.log(firebase);
-// let app = firebase.initializeApp({
-//     apiKey: FBKEY,
-//     projectId: 'crowdmap-305402',
-//     databaseURL: 'https://crowdmap-305402-default-rtdb.firebaseio.com/'
-// });
+console.log(firebase);
+let app = firebase.initializeApp({
+    apiKey: FBKEY,
+    projectId: 'crowdmap-305402',
+    databaseURL: 'https://crowdmap-305402-default-rtdb.firebaseio.com/'
+});
 
 class HeatMap extends Component {
     static defaultProps = {
@@ -26,8 +26,8 @@ class HeatMap extends Component {
         zoom: 15.4
     };
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
             mapStatus: false,
@@ -56,6 +56,7 @@ class HeatMap extends Component {
         let fiDense = (Math.floor(nearby/12) > 2)?2:Math.floor(nearby/12);
         console.log(nearby +": " +denseScale[fiDense]);
         this.setState({dense: denseScale[fiDense]});
+        this.props.setter(denseScale[fiDense]);
     }
     showPosition = (position) => {
         console.log(position.coords.latitude);
@@ -97,21 +98,17 @@ class HeatMap extends Component {
             );
         }
         componentDidMount() {
-            firebase.database().ref("record/").once("value").then(snapshot => {
-                //record/{18:[]}
-                let allData = snapshot.val();
-                let averageData = allData["0"];
-                for(let i in allData) {
-                    if(i == "0") continue;
-                    for(let j = 0; j < averageData.length; j++) {
-                        averageData[j]["lat"] = (averageData[j]["lat"]+allData[i][j]["lat"])/2;
-                        averageData[j]["lng"] = (averageData[j]["lng"]+allData[i][j]["lng"])/2;
-                    }
-                }
-                return averageData;
-            }).then( averageData => {
-                this.addPoints(averageData, 0)
-            })
+            const socket = io('https://crowdmap-server.herokuapp.com');
+
+            socket.on('connect', () =>{
+                socket.emit("update", {"coord": [100, 100]});
+            });
+            socket.on('get', (data) =>{
+                this.addPoints(data[0]);
+                // for(let i = 0; i < data.length; i ++)
+                  // firebase.database().ref("record/" + i).set(data[i]).catch(console.error).then(console.log("pushed"));
+            });
+
         }
     }
 
